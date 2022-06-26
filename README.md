@@ -104,12 +104,18 @@
 
 
 A - accumulator
+
 B - base
+
 C - counter
+
 D - data
 ...
+
 Cx là thanh ghi liên quan đến count
+
 Si với di là source index với dest index, thường đc dùng trong string
+
 IP là thanh ghi trỏ tới lệnh hiện tại
 
 https://www.eecg.utoronto.ca/~amza/www.mindsec.com/files/x86regs.html
