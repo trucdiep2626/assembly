@@ -1,106 +1,106 @@
 # assembly
-.model small  //kích thước chương trình
-.stack 100h // khai báo kích thước đoạn ngăn xếp
-.data  //khai báo các dòng in nhập
+              .model small  //kích thước chương trình
+              .stack 100h // khai báo kích thước đoạn ngăn xếp
+              .data  //khai báo các dòng in nhập
 
-//in dòng xin chao
-nhan db "Xin chao$"
-
-
-//nhập số
-tb1 db "Nhap so thap phan: $"
-x dw ?
-y dw ?
-
-//khai báo đoạn mã
-.code
-
-main proc
-
-       :hàm ngắt ah loại 1, để nhập vào 1 ký tự từ bàn phím
-       mov ah, 1
-       int 21h
-       mov s, al
-
-       :hàm ngắt ah loại 2, để in ra 1 ký tự
-       mov ah, 2
-       mov dl, mã_ascii_code (để xem mã bấm ascii code hiện mã hệ thập phân, bấm chuột trái 1 lần chuyển sang hệ hexa vd 35h)
-       int 21h
-
-       :hàm ngắt ah loại 9, để in ra 1 dòng ký tự
-       mov ax, @data
-       mov ds,ax
-       mov ah, 9
-       lea dx, nhan
-       int 21h
-
-       ;hàm ngắt ah, 4ch để dừng chương trình
-       mov ah, 4ch
-       int 21h
-
-       ;cộng
-       mov al,4
-       mov bl,5
-       add al, bl //lưu kết quả vào al
-
-       ;trừ
-       mov al,4
-       mov bl,5
-       sub al, bl //lưu kết quả vào al
-
-       ;nhân
-       mov al,4
-       mov bl,5
-       mul bl //mặc định lấy al nhân với thanh ghi khai báo, lưu kết quả vào al
-
-       ;chia
-       mov ax,20
-       mov bx,6
-       div bl //chia thanh ghi 8bit lấy bl, lưu kết quả phần nguyên lưu vào al, phần dư lưu ah
-chia thanh 16 lấy bx, nguyên lưu vào ax, dư lưu vào dx
-     ;vòng lặp, số vòng lập mặc định lấy từ cx
-       mov ax,0
-       mov bx,0
-tinhtong:
-       inc ax  // inc là ++, dev là --
-       add bx,ax
-       loop tinhtong
+              //in dòng xin chao
+              nhan db "Xin chao$"
 
 
-thoat
-       ret //quay trở lại chương trình chính và thực hiện tiếp câu lệnh bên dưới
+              //nhập số
+              tb1 db "Nhap so thap phan: $"
+              x dw ?
+              y dw ?
+
+              //khai báo đoạn mã
+              .code
+
+              main proc
+
+                     :hàm ngắt ah loại 1, để nhập vào 1 ký tự từ bàn phím
+                     mov ah, 1
+                     int 21h
+                     mov s, al
+
+                     :hàm ngắt ah loại 2, để in ra 1 ký tự
+                     mov ah, 2
+                     mov dl, mã_ascii_code (để xem mã bấm ascii code hiện mã hệ thập phân, bấm chuột trái 1 lần chuyển sang hệ hexa vd 35h)
+                     int 21h
+
+                     :hàm ngắt ah loại 9, để in ra 1 dòng ký tự
+                     mov ax, @data
+                     mov ds,ax
+                     mov ah, 9
+                     lea dx, nhan
+                     int 21h
+
+                     ;hàm ngắt ah, 4ch để dừng chương trình
+                     mov ah, 4ch
+                     int 21h
+
+                     ;cộng
+                     mov al,4
+                     mov bl,5
+                     add al, bl //lưu kết quả vào al
+
+                     ;trừ
+                     mov al,4
+                     mov bl,5
+                     sub al, bl //lưu kết quả vào al
+
+                     ;nhân
+                     mov al,4
+                     mov bl,5
+                     mul bl //mặc định lấy al nhân với thanh ghi khai báo, lưu kết quả vào al
+
+                     ;chia
+                     mov ax,20
+                     mov bx,6
+                     div bl //chia thanh ghi 8bit lấy bl, lưu kết quả phần nguyên lưu vào al, phần dư lưu ah
+              chia thanh 16 lấy bx, nguyên lưu vào ax, dư lưu vào dx
+                   ;vòng lặp, số vòng lập mặc định lấy từ cx
+                     mov ax,0
+                     mov bx,0
+              tinhtong:
+                     inc ax  // inc là ++, dev là --
+                     add bx,ax
+                     loop tinhtong
 
 
-main endp
+              thoat
+                     ret //quay trở lại chương trình chính và thực hiện tiếp câu lệnh bên dưới
 
 
-//tạo hàm
-nhapso proc
-       mov x,0
-       mov y,0
-        mov bx, 10 // để nhập số trong hệ thập phân
-nhap:
-       mov ah,1
-       int 21h
-       ;nhập đến khi enter mới dừng lại
-       cmp al,13
-       je thoat // neu nhập vào enter thì chạy hàm thoat
-       sub al, 30h  //trừ đi 30h để tính toàn đúng số nhập
-       xor ah, ah // xóa thanh ghi ah do dòng tiếp theo dùng ax cần 16bit nên cần xóa để dùng 16 bit của ax
-       mov y, ax
-       mov ax, x
-       mul bx //ax nhân với 10 để thành số hàng chục
-       add ax,y
-       mov x, ax
-       jmp nhap //quay lại nhập tiếp tục
+              main endp
 
-    ; so sánh 2 số
-    mov ah,1
-    mov al, 2
-    cmp ah,al
 
-nhapso endp
-end main
+              //tạo hàm
+              nhapso proc
+                     mov x,0
+                     mov y,0
+                      mov bx, 10 // để nhập số trong hệ thập phân
+              nhap:
+                     mov ah,1
+                     int 21h
+                     ;nhập đến khi enter mới dừng lại
+                     cmp al,13
+                     je thoat // neu nhập vào enter thì chạy hàm thoat
+                     sub al, 30h  //trừ đi 30h để tính toàn đúng số nhập
+                     xor ah, ah // xóa thanh ghi ah do dòng tiếp theo dùng ax cần 16bit nên cần xóa để dùng 16 bit của ax
+                     mov y, ax
+                     mov ax, x
+                     mul bx //ax nhân với 10 để thành số hàng chục
+                     add ax,y
+                     mov x, ax
+                     jmp nhap //quay lại nhập tiếp tục
+
+                  ; so sánh 2 số
+                  mov ah,1
+                  mov al, 2
+                  cmp ah,al
+
+              nhapso endp
+              end main
 
 
 A - accumulator
