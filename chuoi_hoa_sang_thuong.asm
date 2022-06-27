@@ -34,11 +34,18 @@ inketqua:
     lea si, str
     inchuoi:
         mov ah,2
-        mov bl,[si]
-        add bl,32
+        mov bl,[si]  
+        cmp bl, 32
+        je skip
+        add bl,32  
+    skip:    
         mov dl,bl
-        int 21h
+        int 21h    
         inc si
-        loop inchuoi
+        loop inchuoi    
+        
+    mov ah,4ch
+    int 21h
 end main
     
+ 
