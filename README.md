@@ -19,6 +19,10 @@
               .code
 
               main proc
+              
+                     mov ax, @data
+                     mov ds, ax
+                     mov es,ax
 
                      :hàm ngắt ah loại 1, để nhập vào 1 ký tự từ bàn phím
                      mov ah, 1
@@ -61,11 +65,32 @@
                      mov cl, dodaichuoi
                      lea dx, chuoi
                      int 21h
+                     
+                     ;mở file
+                     mov ah,3dh
+                     lea dx, tenfile
+                     int 21h
+                     
+                     mov file,ax 
+                     
+                     ;docfile
+                     mov ah,3fh
+                     mov bx,file
+                     mov cx, số kí tự cần đọc
+                     lea dx, chuỗi đọc ra console
+                     int 21h
                     
                       ;đóng file
                       mov ah,3eh
                       mov bx,f
                       int 21h
+                      
+                      ;đổi tên file
+                      mov ah, 56h
+                      lea dx,tencu
+                      lea di, tenmoi
+                      int 21h
+                      
                      ;cộng
                      mov al,4
                      mov bl,5
