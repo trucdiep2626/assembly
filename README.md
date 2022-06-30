@@ -11,6 +11,9 @@
               tb1 db "Nhap so thap phan: $"
               x dw ?
               y dw ?
+              
+              //khai báo con trỏ file
+              f dw ?
 
               //khai báo đoạn mã
               .code
@@ -33,11 +36,36 @@
                      mov ah, 9
                      lea dx, nhan
                      int 21h
+                     
+                     ;hàm ngắt ah loại 10, để nhập chuỗi
+                     mov ah,10
+                     lea dx, chuoi
+                     int 21h
 
                      ;hàm ngắt ah, 4ch để dừng chương trình
                      mov ah, 4ch
                      int 21h
-
+                     
+                     
+                     ;thao tác với file
+                     ;tạo file
+                     mov ah, 3ch
+                     mov cx  // tập tin có thuộc tính bình thường
+                     lea dx, tenfile
+                     int 21h
+                     
+                     ;ghi file
+                     mov ah,40h
+                     mov bx,f
+                     mov cx,0
+                     mov cl, dodaichuoi
+                     lea dx, chuoi
+                     int 21h
+                    
+                      ;đóng file
+                      mov ah,3eh
+                      mov bx,f
+                      int 21h
                      ;cộng
                      mov al,4
                      mov bl,5
