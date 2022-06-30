@@ -1,9 +1,9 @@
 .model small
 .stack 100h
 .data
-    tb1 db "Nhap so: $"
-    tb2 db 10,13,"Tong = $"
-    str db 100 dup("$")
+   
+    tb db 10,13,"Tong = $"
+    str db 11,3,4,5,66 
 .code
 
 main proc
@@ -11,31 +11,15 @@ main proc
     mov ax,@data
     mov ds, ax
     
-    mov ah,9
-    lea dx,tb1
-    int 21h    
+    mov cx,5
     
-    lea si, str
-    xor cx,cx
-    
-nhap:
-    mov ah,1
-    int 21h
-    cmp al,13
-    je tinhtong 
-    mov [si],al
-    inc si
-    inc cx
-    jmp nhap
-    
-tinhtong:
+ tinhtong:
     mov ax,0
     mov bx,0
     lea si,str
     
     tinh:
        mov bl,[si]
-       sub bl,30h
        add al,bl
        inc si
        xor bx,bx
@@ -55,17 +39,16 @@ chia:
     jmp chia       
     
 inkq:
-     mov ah,9
-     lea dx,tb2
-     int 21h
+    mov ah,9
+    lea dx,tb
+    int 21h   
      
      inso:
         mov ah,2
         pop dx   
         add dx,30h
         int 21h
-        loop inso
-        
+        loop inso 
     mov ah,4ch
     int 21h
     
