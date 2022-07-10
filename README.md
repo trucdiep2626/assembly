@@ -54,7 +54,7 @@
                      ;thao tác với file
                      ;tạo file
                      mov ah, 3ch
-                     mov cx  // tập tin có thuộc tính bình thường
+                     mov cx,0  // tập tin có thuộc tính bình thường
                      lea dx, tenfile
                      int 21h
                      
