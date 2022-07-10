@@ -91,6 +91,11 @@
                       lea di, tenmoi
                       int 21h
                       
+                     ;xóa file
+                      mov ah, 41h
+                      lea dx,ten
+                      int 21h
+                      
                      ;cộng
                      mov al,4
                      mov bl,5
